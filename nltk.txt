@@ -3,3 +3,6 @@ wordnet
 pros_cons
 reuters
 stopwords
+tokenize
+stem
+pos_tag

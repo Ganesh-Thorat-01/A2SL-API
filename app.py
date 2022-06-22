@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
+#from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 import nltk
 import uvicorn
