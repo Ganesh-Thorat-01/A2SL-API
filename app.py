@@ -7,7 +7,7 @@ import nltk
 import uvicorn
 
 class Item(BaseModel):
-    senetence: str
+    sentence: str
     
 app = FastAPI()
 
@@ -19,7 +19,7 @@ def root():
 
 @app.post("/a2sl")
 def a2sl(Item: Item):
-    text=Item.senetence
+    text=Item.sentence
     text=text.lower()
     
     words = word_tokenize(text)
