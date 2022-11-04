@@ -14,7 +14,7 @@ app = FastAPI()
 
 @app.get("/")
 def root():
-    return {"message": "A2SL API"}
+    return {"message": "Sign Language API"}
 
 
 @app.post("/a2sl")
@@ -104,5 +104,14 @@ def a2sl(Item: Item):
     words=filtered_text
     return words
     
+
+@app.post("/post")
+def post():
+
+    return {
+        "Recommended":["Ganesh","Thorat"],
+        "Post":["Hi","Hello","Hey"]
+    }
+ 
 if __name__ == "__main__":
     uvicorn.run(app)
