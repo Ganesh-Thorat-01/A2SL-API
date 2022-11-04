@@ -4,6 +4,7 @@ from nltk.tokenize import word_tokenize
 #from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 import nltk
+import pandas as pd
 import uvicorn
 
 class Item(BaseModel):
