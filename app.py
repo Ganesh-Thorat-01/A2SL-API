@@ -112,10 +112,10 @@ def post():
     df=pd.read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQ2bE34VkmJ7cXaFywc5LLKfBYCAmziBuOeRd5DygHnwiQspJ9RG-p05cTQnpizvoOlUYETDwu37NSB/pub?output=csv")
     recommeded=df[:][:3]
 
-    return {sss
+    return {
         "Recommended":recommeded,
         "Post":df
     }
- 
+ s
 if __name__ == "__main__":
     uvicorn.run(app)
