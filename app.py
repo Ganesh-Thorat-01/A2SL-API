@@ -110,8 +110,8 @@ def a2sl(Item: Item):
 def post():
 
     df=pd.read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQ2bE34VkmJ7cXaFywc5LLKfBYCAmziBuOeRd5DygHnwiQspJ9RG-p05cTQnpizvoOlUYETDwu37NSB/pub?output=csv")
-    recommeded=df[:][:3]
-
+    recommeded=df[:][:5]
+    
     return {
         "Recommended":recommeded,
         "Post":df
