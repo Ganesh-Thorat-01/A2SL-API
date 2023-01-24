@@ -6,6 +6,12 @@ from nltk.stem import WordNetLemmatizer
 import nltk
 import pandas as pd
 import uvicorn
+import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import linear_kernel
 
 class Item(BaseModel):
     sentence: str
@@ -110,8 +116,34 @@ def a2sl(Item: Item):
 def post():
 
     df=pd.read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQ2bE34VkmJ7cXaFywc5LLKfBYCAmziBuOeRd5DygHnwiQspJ9RG-p05cTQnpizvoOlUYETDwu37NSB/pub?output=csv")
-    recommeded=df[:][:5]
     
+    tfidf = TfidfVectorizer(stop_words='english')
+    df['description'] = df['description'].fillna("")
+
+    #Construct the required TF-IDF matrix by applying the fit_transform method on the overview 
+    overview_matrix = tfidf.fit_transform(df['description'])
+
+    similarity_matrix = linear_kernel(overview_matrix,overview_matrix)
+
+    mapping = pd.Series(df.index,index = df["Title"])
+
+    def recommend_posts_based_on_plot(post_input):
+        post_index = mapping[post_input]
+        #get similarity values with other posts
+        #similarity_score is the list of index and similarity matrix
+        similarity_score = list(enumerate(similarity_matrix[post_index]))
+        #sort in descending order the similarity score of post inputted with all the other posts
+        similarity_score = sorted(similarity_score, key=lambda x: x[1], reverse=True)
+        # Get the scores of the 5 most similar posts. Ignore the first post.
+        similarity_score = similarity_score[1:6]
+        #return post names using the mapping series
+        post_indices = [i[0] for i in similarity_score]
+        return (df.iloc[post_indices])
+    
+    recommeded=recommend_posts_based_on_plot("Major Devender Pal, India’s blade runner")
+
+    #recommeded=df[:][:5]
+        
     return {
         "Recommended":recommeded,
         "Post":df
