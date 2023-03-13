@@ -140,12 +140,13 @@ def post():
         post_indices = [i[0] for i in similarity_score]
         return (df.iloc[post_indices])
     
-    recommeded=recommend_posts_based_on_plot("Major Devender Pal, India’s blade runner")
+    recommended=recommend_posts_based_on_plot("Major Devender Pal, India’s blade runner")
+    recommended=recommended.reset_index(drop=True)
 
     #recommeded=df[:][:5]
         
     return {
-        "Recommended":recommeded,
+        "Recommended":recommended,
         "Post":df
     }
     
